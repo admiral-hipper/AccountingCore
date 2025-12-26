@@ -1,34 +1,64 @@
-# FridgeMaster — Inventory & Accounting Engine
+# AccountingCore
+### Inventory & Accounting Engine (Laravel)
 
-FridgeMaster is a Laravel-based REST backend that implements a **real inventory/accounting engine**.
-It supports stock balances, operation rules, and transactional movements — not just CRUD.
+> AccountingCore is a production-grade inventory accounting engine that provides transactional stock control through document-based operations and rule validation.
+---
 
-Can be used as a core for:
-- Warehouse systems
-- Shops / POS
+## 🚀 What Is AccountingCore
+
+AccountingCore is a backend accounting engine built on Laravel that implements real inventory bookkeeping logic rather than simple item CRUD.
+It uses accounting documents (Bills) and rule-validated operations to control all stock movements, ensuring balance integrity, transactional safety, and audit-ready data structures.
+It is designed to serve as the core backend layer for POS systems, warehouses, shops, cafes, service centers, and ERP microservices.
+
+---
+
+## 🎯 Who This Is For
+
+- POS systems
+- Warehouses
+- Shops
 - Cafes & restaurants
-- Spare parts accounting
+- ERP microservices
 - Fulfillment services
 
-## Tech
-- Laravel
-- PHP 8+
-- OpenAPI (Swagger)
-- PHPUnit
+---
 
-## Core Concepts
+## ⚙️ Tech Stack
 
-| Concept | Description |
-|-------|-------------|
-| Product | Any stock item |
-| Book | Accounting book (main storage) |
-| Bill | Accounting document |
-| BillItem | Item line in a bill |
-| BookBalance | Calculated stock balances |
-| OperationType | Type of operation (income, outcome, etc.) |
-| OperationTypeRule | Rules that control allowed operations |
+| Layer | Stack |
+|------|------|
+| Backend | Laravel |
+| Language | PHP 8+ |
+| Database | MySQL / PostgreSQL |
+| API Docs | OpenAPI / Swagger |
+| Tests | PHPUnit |
 
-## Quick Start
+---
+
+## 🧠 Core Accounting Model
+
+<pre>Product → Bill → BillItem → Book → BookBalance
+                        ↓
+                OperationType + Rules</pre>
+
+
+---
+
+## 🧱 Domain Concepts
+
+| Entity | Description |
+|-------|------------|
+| Product |Any inventory item|
+| Book |Warehouse / accounting book|
+| Bill |Accounting document|
+| BillItem |Line inside a bill|
+| BookBalance |Calculated stock balances|
+| OperationType |Type of stock operation|
+| OperationTypeRule |Rule engine controlling operations|
+
+---
+
+## ⚡ Quick Start
 
 ```bash
 composer install
@@ -36,26 +66,53 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate
 php artisan serve
-
 ```
-# API Docs
 
-## OpenAPI specs:
+## 📘 API Documentation
 
 OpenAPI.yaml
 
 OpenApiResolved.json
 
-Import into Postman / Swagger UI.
+## 🌐 API Overview
 
-# Tests
-php artisan test
+| Endpoint | Method | Description
+|----------|------------|--------|
+|/api/products|GET|List products
+|/api/products|POST|Create product
+|/api/books|GET|List warehouses / books
+|/api/books|POST|Create warehouse / book
+|/api/operation-types|GET|List operation types
+|/api/operation-types|POST|Create operation type
+|/api/bills|POST|Create accounting document
+|/api/bills/{id}|GET|Get bill details
+|/api/bills/{id}/items|POST|Add bill line
+|/api/bills/{id}/commit|POST|Commit bill and update balances
+|/api/balances|GET|Get current stock balances
+## 🛡 Business Guarantees
 
-# Use Cases
+Guarantee
 
-- Inventory management systems
-- POS backends
-- Warehouse automation
-- Cafe / Restaurant stock systems
-- ERP microservices
+- Negative stock protection<br>
+- Transactional commits<br>
+- Rule-based operations<br>
+- OpenAPI contract<br>
+- Automated tests<br>
 
+## 🧩 Extensibility
+
+- Multi-warehouse<br>
+- FIFO / LIFO<br>
+- Batches & expiration<br>
+- Reservations<br>
+- Financial valuation<br>
+- Multi-currency<br>
+- Audit logs<br>
+- Webhooks<br>
+
+🏁 Production Checklist
+
+- Docker Compose
+- CI/CD
+- RBAC
+- Audit logs
